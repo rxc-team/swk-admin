@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: web-admin
-        image: gcr.io/{{ PROJECT_ID }}/web-admin:{{ IMAGE }}
+        image: us-docker.pkg.dev/{{ PROJECT_ID }}/gcr.io/web-admin:{{ IMAGE }}
         imagePullPolicy: Always
         env:
           - name: ENV
