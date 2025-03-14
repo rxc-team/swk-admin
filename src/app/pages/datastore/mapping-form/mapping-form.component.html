@@ -10,7 +10,7 @@
             nz-input
             formControlName="mappingName"
             [placeholder]="
-              'common.placeholder.input' | translate: { label: 'page.datastore.mapping.mappingName' | translate }
+              'common.placeholder.input' | translate : { label: 'page.datastore.mapping.mappingName' | translate }
             "
             [ngStyle]="{ width: isSmall ? '220px' : '315px' }"
           />
@@ -25,27 +25,6 @@
           </ng-template>
         </nz-form-control>
       </nz-form-item>
-      <!-- TODO -->
-      <!-- <nz-form-item>
-        <nz-form-label nzRequired="true">{{ 'page.datastore.mapping.applyType' | translate }}</nz-form-label>
-        <nz-form-control [nzErrorTip]="errorApplyType">
-          <nz-select
-            formControlName="applyType"
-            nzAllowClear
-            (ngModelChange)="applyTypeChange($event)"
-            [ngStyle]="{ width: isSmall ? '220px' : '300px' }"
-            [nzDisabled]="status === 'edit'"
-          >
-            <nz-option nzValue="datastore" [nzLabel]="'台账'"></nz-option>
-            <nz-option nzValue="history" [nzLabel]="'履历'"></nz-option>
-          </nz-select>
-          <ng-template #errorApplyType let-control>
-            <ng-container *ngIf="control.hasError('required')">
-              {{ 'common.validator.requiredSelect' | translate }}
-            </ng-container>
-          </ng-template>
-        </nz-form-control>
-      </nz-form-item> -->
     </div>
     <div nz-col [nzXs]="4" [nzMd]="4" style="text-align: right" *ngIf="!isSmall">
       <button nz-button nzType="primary" type="button" (click)="submit()" [disabled]="form.invalid">
@@ -161,29 +140,6 @@
             </nz-form-control>
           </nz-form-item>
         </div>
-        <!-- <div nz-col [nzXs]="24" [nzMd]="12">
-          <nz-form-item>
-            <nz-form-label nzRequired="true" nzFor="breakChar">
-              {{ 'page.datastore.mapping.breakChar' | translate }}
-            </nz-form-label>
-            <nz-form-control [nzErrorTip]="errorBreakChar">
-              <nz-select
-                formControlName="breakChar"
-                nzAllowClear
-                [nzPlaceHolder]="'common.validator.requiredSelect' | translate"
-                style="width: 120px"
-              >
-                <nz-option nzValue="single" [nzLabel]="'page.datastore.mapping.breakCharSingle' | translate"></nz-option>
-              </nz-select>
-              <ng-template #errorBreakChar let-control>
-                <ng-container *ngIf="control.hasError('required')">
-                  {{ 'common.validator.requiredSelect' | translate }}
-                </ng-container>
-              </ng-template>
-            </nz-form-control>
-          </nz-form-item>
-        </div> -->
-
         <div nz-col [nzXs]="24" [nzMd]="12">
           <nz-form-item>
             <nz-form-label nzRequired="true" nzFor="lineBreakCode">
@@ -315,7 +271,7 @@
               [(ngModel)]="item.to_key"
               nzAllowClear
               [nzPlaceHolder]="
-                'common.placeholder.select' | translate: { label: 'page.datastore.mapping.mappingKeyName' | translate }
+                'common.placeholder.select' | translate : { label: 'page.datastore.mapping.mappingKeyName' | translate }
               "
             >
               <nz-option *ngFor="let f of mappingFields" [nzValue]="f.name" [nzLabel]="f.name"></nz-option>
@@ -325,7 +281,7 @@
               *ngIf="mappingFields.length == 0"
               [(ngModel)]="item.to_key"
               [placeholder]="
-                'common.placeholder.input' | translate: { label: 'page.datastore.mapping.mappingKeyName' | translate }
+                'common.placeholder.input' | translate : { label: 'page.datastore.mapping.mappingKeyName' | translate }
               "
             />
           </td>
@@ -360,7 +316,7 @@
               [(ngModel)]="item.default_value"
               [placeholder]="
                 'common.placeholder.input'
-                  | translate: { label: 'page.datastore.mapping.mappingDefaultValue' | translate }
+                  | translate : { label: 'page.datastore.mapping.mappingDefaultValue' | translate }
               "
             />
           </td>
@@ -424,7 +380,7 @@
               [(ngModel)]="item.to_key"
               nzAllowClear
               [nzPlaceHolder]="
-                'common.placeholder.select' | translate: { label: 'page.datastore.mapping.mappingKeyName' | translate }
+                'common.placeholder.select' | translate : { label: 'page.datastore.mapping.mappingKeyName' | translate }
               "
             >
               <nz-option *ngFor="let f of mappingFields" [nzValue]="f.name" [nzLabel]="f.name"></nz-option>
@@ -434,7 +390,7 @@
               *ngIf="mappingFields.length == 0"
               [(ngModel)]="item.to_key"
               [placeholder]="
-                'common.placeholder.input' | translate: { label: 'page.datastore.mapping.mappingKeyName' | translate }
+                'common.placeholder.input' | translate : { label: 'page.datastore.mapping.mappingKeyName' | translate }
               "
             />
           </td>
@@ -473,9 +429,48 @@
               [(ngModel)]="item.default_value"
               [placeholder]="
                 'common.placeholder.input'
-                  | translate: { label: 'page.datastore.mapping.mappingDefaultValue' | translate }
+                  | translate : { label: 'page.datastore.mapping.mappingDefaultValue' | translate }
               "
             />
+          </td>
+          <!-- 分割方式 -->
+          <td>
+            <nz-select
+              style="width: 100%"
+              [(ngModel)]="item.split_method"
+              nzAllowClear
+              [nzDisabled]="item.field_type !== 'text'"
+              [nzPlaceHolder]="'common.validator.requiredSelect' | translate"
+            >
+              <nz-option nzValue="splitNumber" [nzLabel]="'common.text.splitNumber' | translate"></nz-option>
+              <nz-option nzValue="splitSign" [nzLabel]="'common.text.splitSign' | translate"></nz-option>
+            </nz-select>
+          </td>
+          <!-- 区切り文字 -->
+          <td>
+            <input
+              nz-input
+              [(ngModel)]="item.split_character"
+              (input)="validateInput($event, item.split_method)"
+              [placeholder]="
+                'common.placeholder.input' | translate : { label: 'page.datastore.mapping.splitCharacter' | translate }
+              "
+              [disabled]="!item.split_method"
+            />
+          </td>
+          <!-- 分割部分 -->
+          <td>
+            <nz-select
+              style="width: 100%"
+              [(ngModel)]="item.split_select"
+              nzAllowClear
+              [nzDisabled]="item.field_type !== 'text'"
+              [nzPlaceHolder]="'common.validator.requiredSelect' | translate"
+              [nzDisabled]="!item.split_character || !item.split_method"
+            >
+              <nz-option nzValue="splitLeft" [nzLabel]="'common.text.splitLeft' | translate"></nz-option>
+              <nz-option nzValue="splitRight" [nzLabel]="'common.text.splitRight' | translate"></nz-option>
+            </nz-select>
           </td>
           <!-- 空按钮 -->
           <td>

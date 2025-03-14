@@ -50,6 +50,18 @@ export class MappingFormComponent implements OnInit {
       width: '220px'
     },
     {
+      title: 'page.datastore.mapping.splitMethod',
+      width: '220px'
+    },
+    {
+      title: 'page.datastore.mapping.splitCharacter',
+      width: '220px'
+    },
+    {
+      title: 'page.datastore.mapping.splitSelect',
+      width: '220px'
+    },
+    {
       title: ''
     }
   ];
@@ -80,6 +92,18 @@ export class MappingFormComponent implements OnInit {
     },
     {
       title: 'page.datastore.mapping.mappingDefaultValue',
+      width: '220px'
+    },
+    {
+      title: 'page.datastore.mapping.splitMethod',
+      width: '220px'
+    },
+    {
+      title: 'page.datastore.mapping.splitCharacter',
+      width: '220px'
+    },
+    {
+      title: 'page.datastore.mapping.splitSelect',
       width: '220px'
     },
     {
@@ -114,6 +138,18 @@ export class MappingFormComponent implements OnInit {
     },
     {
       title: 'page.datastore.mapping.mappingDefaultValue',
+      width: '220px'
+    },
+    {
+      title: 'page.datastore.mapping.splitMethod',
+      width: '220px'
+    },
+    {
+      title: 'page.datastore.mapping.splitCharacter',
+      width: '220px'
+    },
+    {
+      title: 'page.datastore.mapping.splitSelect',
       width: '220px'
     },
     {
@@ -209,6 +245,9 @@ export class MappingFormComponent implements OnInit {
               f.primary_key = r.primary_key;
               f.precision = r.precision;
               f.show_order = i + 1;
+              f.split_method = r.split_method;
+              f.split_character = r.split_character;
+              f.split_select = r.split_select;
             } else {
               f.show_order = i + 1;
             }
@@ -298,8 +337,14 @@ export class MappingFormComponent implements OnInit {
           replace: f.replace,
           primary_key: f.primary_key,
           precision: f.precision,
-          show_order: f.show_order
+          show_order: f.show_order,
+          split_method: f.split_method,
+          split_character: f.split_character,
+          split_select: f.split_select
         };
+        if (f.split_method == 'splitNumber') {
+          rule.split_character = f.split_character.replace(/\D/g, '');
+        }
         mappingRule.push(rule);
       }
     });
@@ -459,5 +504,17 @@ export class MappingFormComponent implements OnInit {
    */
   onResize({ width }: NzResizeEvent, col: string): void {
     this.cols = this.cols.map(e => (e.title === col ? { ...e, width: `${width}px` } : e));
+  }
+
+  /**
+   * @description: 只允许表单输入数字，不限制位数
+   */
+  validateInput(event, splitMethod: any) {
+    if (splitMethod == 'splitNumber') {
+      const input = event.target.value;
+      if (!/^\d*$/.test(input)) {
+        event.target.value = input.slice(0, -1);
+      }
+    }
   }
 }
